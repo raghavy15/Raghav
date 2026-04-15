@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raghav | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/img/raghav-bby.jpg" sizes="28x28">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, hsl(22, 83%, 75%), rgb(189, 82, 0));
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 40px;
+            background: rgb(60, 50, 0);
+            border-radius: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: width 0.5s ease, justify-content 0.5s ease;
+            overflow: hidden;
+        }
+
+        .navbar:hover {
+            width: 350px;
+            background: rgb(217, 86, 16);
+            color: rgb(205, 240, 255);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            margin-left: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .navbar:hover a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar a:hover {
+            color: rgb(187, 255, 255);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(60, 50, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+            padding: 15px;
+            gap: 10px;
+            z-index: 999;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgb(217, 86, 16);
+            color: rgb(187, 255, 255);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-container {
+            margin-top: 60px;
+            perspective: 1000px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            animation: cardEntry 1s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes cardEntry {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) rotateX(-10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(5px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: white;
+            }
+        }
+
+        .main {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .img {
+            flex-shrink: 0;
+        }
+
+        .img img {
+            width: 250px;
+            height: 250px;
+            border-radius: 20%;
+            object-fit: cover;
+            animation: bounce 2s infinite;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 5px solid rgba(217, 86, 16, 0.3);
+        }
+
+        .intro {
+            color: white;
+            flex: 1;
+        }
+
+        .typing-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            display: inline-block;
+            border-right: 2px solid;
+            white-space: nowrap;
+            overflow: hidden;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 15px;
+        }
+
+        .intro strong {
+            color: rgb(255, 220, 180);
+            font-weight: 700;
+        }
+
+        /* Tablet Styles */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                top: 20px;
+                right: 20px;
+                left: auto;
+                transform: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: rgb(217, 86, 16);
+            }
+
+            .navbar:hover {
+                width: 50px;
+                background: rgb(217, 86, 16);
+            }
+
+            .navbar a {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .card {
+                padding: 30px;
+                margin-top: 50px;
+            }
+
+            .main {
+                flex-direction: column;
+                gap: 25px;
+                text-align: center;
+            }
+
+            .img img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .typing-text {
+                font-size: 2rem;
+            }
+
+            .intro p {
+                font-size: 16px;
+            }
+        }
+
+        /* Mobile Styles */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .navbar {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .hamburger span {
+                width: 22px;
+            }
+
+            .mobile-menu {
+                top: 70px;
+                right: 15px;
+            }
+
+            .card {
+                padding: 25px 20px;
+                margin-top: 40px;
+                border-radius: 20px;
+            }
+
+            .main {
+                gap: 20px;
+            }
+
+            .img img {
+                width: 150px;
+                height: 150px;
+                border: 4px solid rgba(217, 86, 16, 0.3);
+            }
+
+            .typing-text {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+
+            .intro p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        }
+
+        /* Small Mobile Styles */
+        @media screen and (max-width: 360px) {
+            .navbar {
+                width: 40px;
+                height: 40px;
+            }
+
+            .hamburger span {
+                width: 20px;
+                height: 2.5px;
+            }
+
+            .card {
+                padding: 20px 15px;
+            }
+
+            .img img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .typing-text {
+                font-size: 1.3rem;
+            }
+
+            .intro p {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href='index.html'>
+            <span>Home</span>
+        </a>
+        <a href='skills.html'>
+            <span>Skills</span>
+        </a>
+        <a href='projects.html'>
+            <span>Projects</span>
+        </a>
+        <a href='contact.html'>
+            <span>Contact</span>
+        </a>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href='index.html'>Home</a>
+        <a href='skills.html'>Skills</a>
+        <a href='projects.html'>Projects</a>
+        <a href='contact.html'>Contact</a>
+    </div>
+
+    <div class="card-container">
+        <div class="card">
+            <section class="main">
+                <div class="img">
+                    <img src="/img/raghav-bby.jpg" alt="Raghav">
+                </div>
+
+                <div class="intro">
+                    <div class="typing-text">Hi there,</div>
+                    <p>
+                        This is <strong>Raghav</strong>, a normal student and a Discord developer. As a developer, I enjoy
+                        managing Discord servers, learning new things, solving problems, and bringing creative ideas to life
+                        through code.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navbar = document.querySelector('.navbar');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!navbar.contains(event.target) && !mobileMenu.contains(event.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+
+</html>

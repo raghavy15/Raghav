@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raghav | Projects</title>
+    <link rel="icon" type="image/png" href="/img/raghav-bby.jpg" sizes="28x28">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, hsl(22, 83%, 75%), rgb(189, 82, 0));
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* ===============================
+           Navbar
+        ================================ */
+        .navbar {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 40px;
+            background: rgb(5, 0, 60);
+            border-radius: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: width 0.5s ease, background 0.5s ease;
+            overflow: hidden;
+        }
+
+        .navbar:hover {
+            width: 350px;
+            background: rgb(217, 86, 16);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            margin-left: 20px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar:hover a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar a:hover {
+            color: rgb(187, 255, 255);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(5, 0, 60, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+            padding: 15px;
+            gap: 10px;
+            z-index: 999;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgb(217, 86, 16);
+            color: rgb(187, 255, 255);
+        }
+
+        /* ===============================
+           Animations
+        ================================ */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slide {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ===============================
+           Main Content
+        ================================ */
+        .container {
+            max-width: 1200px;
+            margin: 120px auto 40px;
+        }
+
+        .intro {
+            color: white;
+            animation: slide 1.3s ease-in-out;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .typing-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #f9f9f9;
+            display: inline-block;
+            border-right: 2px solid white;
+            white-space: nowrap;
+            overflow: hidden;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===============================
+           Project Cards
+        ================================ */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            animation: slide 1.3s ease-in-out;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .project-card p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* ===============================
+           Tablet Responsive (≤768px)
+        ================================ */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                top: 20px;
+                right: 20px;
+                left: auto;
+                transform: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: rgb(217, 86, 16);
+            }
+
+            .navbar:hover {
+                width: 50px;
+                background: rgb(217, 86, 16);
+            }
+
+            .navbar a {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .container {
+                margin-top: 100px;
+            }
+
+            .typing-text {
+                font-size: 2rem;
+            }
+
+            .intro p {
+                font-size: 16px;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .project-card {
+                padding: 25px;
+            }
+
+            .project-card h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ===============================
+           Mobile Responsive (≤480px)
+        ================================ */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .navbar {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .hamburger span {
+                width: 22px;
+            }
+
+            .mobile-menu {
+                top: 70px;
+                right: 15px;
+            }
+
+            .container {
+                margin-top: 80px;
+            }
+
+            .typing-text {
+                font-size: 1.6rem;
+                border-right: none;
+                animation: typing 2.8s steps(20, end);
+            }
+
+            .intro p {
+                font-size: 15px;
+            }
+
+            .projects {
+                gap: 20px;
+            }
+
+            .project-card {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .project-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 12px;
+            }
+
+            .project-card p {
+                font-size: 14px;
+            }
+        }
+
+        /* ===============================
+           Small Mobile (≤360px)
+        ================================ */
+        @media screen and (max-width: 360px) {
+            .navbar {
+                width: 40px;
+                height: 40px;
+            }
+
+            .hamburger span {
+                width: 20px;
+                height: 2.5px;
+            }
+
+            .typing-text {
+                font-size: 1.4rem;
+            }
+
+            .intro p {
+                font-size: 14px;
+            }
+
+            .project-card {
+                padding: 18px;
+            }
+
+            .project-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .project-card p {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href='index.html'>Home</a>
+        <a href='skills.html'>Skills</a>
+        <a href='projects.html'>Projects</a>
+        <a href='contact.html'>Contact</a>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href='index.html'>Home</a>
+        <a href='skills.html'>Skills</a>
+        <a href='projects.html'>Projects</a>
+        <a href='contact.html'>Contact</a>
+    </div>
+
+    <div class="container">
+        <div class="intro">
+            <div class="typing-text">My projects,</div>
+            <p>
+                As a student, I'm still learning and experimenting. Here are a few small projects and works that reflect my interests in Discord development and art:
+            </p>
+        </div>
+
+        <div class="projects">
+            <div class="project-card">
+                <h3>Discord Server Setup</h3>
+                <p>
+                    Created and managed a Discord server with roles, channels, rules, and basic bots for moderation and engagement.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <h3>Custom Discord Bot</h3>
+                <p>
+                    Built a simple Discord bot to handle basic commands, server utilities, and fun interactions.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <h3>Digital Art Practice</h3>
+                <p>
+                    Worked on digital art designs, illustrations, and creative concepts as part of my learning journey.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navbar = document.querySelector('.navbar');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!navbar.contains(event.target) && !mobileMenu.contains(event.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
